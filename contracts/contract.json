@@ -1,0 +1,22 @@
+{
+  "name": "super-awesome-contract",
+  "networks": {
+    "MainNet": {
+      "appID": 123456
+    }
+  },
+  "methods": [
+    {
+      "name": "add",
+      "desc": "Add 2 integers",
+      "args": [{ "type": "uint64" }, { "type": "uint64" }],
+      "returns": { "type": "uint64" }
+    },
+    {
+      "name": "sub",
+      "desc": "Subtract 2 integers",
+      "args": [{ "type": "uint64" }, { "type": "uint64" }],
+      "returns": { "type": "uint64" }
+    }
+  ]
+}

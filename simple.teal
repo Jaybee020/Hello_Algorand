@@ -1,0 +1,34 @@
+#pragma version 6
+txn ApplicationID //application ID is initially 0 on deployment
+bz handle_createapp //branches if there is a 0 on the stack(APPLICATION ID is 0 on deployment)so it handles deployment
+
+//ABI code to check the method name
+method "add(uint64,uint64)uint64 "
+txna ApplicationArgs 0 //application argument array first slot is signature
+== //OPCODE pushes a 1 if values on the stack are equal or 0
+assert //fails if there is a 0 on the stack,so fails
+
+
+txna ApplicationArgs 1 //get other transaction argument
+btoi//change type to int as by default all types are bytes
+txna ApplicationArgs 2
+btoi
++ //OPCODE to add values on stack
+store 0 //POP a value from the stack and save it to scratch space
+
+//Handle ABI Return Type
+byte 0x151f7c75 //Literally hash('return')[:4]
+load 0 //load from scratch space to stack
+itob //convert to byte 
+concat //concat the 2 values in the stack together
+log //send out the return value
+
+//Return a positive value for yout tx to be successful
+
+int 1
+return 
+
+//handle branch scenario
+handle_createapp;
+int 1
+return 
